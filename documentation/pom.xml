@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.documenter</groupId>
+        <artifactId>github-repo-documenter</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>documentation</artifactId>
+    <name>documentation</name>
+    <description>Documentation module — generates and stores AI-powered documentation</description>
+
+    <dependencies>
+        <!-- Depends on ai-gateway for AIGateway interface -->
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>ai-gateway</artifactId>
+        </dependency>
+
+        <!-- Depends on vcs-gateway for VCSProvider interface -->
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>vcs-gateway</artifactId>
+        </dependency>
+
+        <!-- Depends on crawler for RepositoryCrawler and CrawledFile -->
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>crawler</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Web for REST endpoints -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

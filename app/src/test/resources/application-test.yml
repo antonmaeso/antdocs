@@ -1,0 +1,60 @@
+# ============================================================
+# Test Profile Configuration
+#
+# This file is activated automatically when the "test" Spring
+# profile is active.  Activate it in tests via:
+#
+#   @ActiveProfiles("test")
+#
+# or by setting the property:
+#
+#   spring.profiles.active=test
+#
+# All values here override the defaults in application.yml
+# with test-safe equivalents: dummy credentials, in-memory
+# mocks, and short timeouts so tests run quickly.
+# ============================================================
+
+# ============================================================
+# VCS Configuration (test overrides)
+# Uses a fixed dummy token so tests never need a real env var.
+# ============================================================
+vcs:
+  provider: github
+  bot-username: test-bot
+  github:
+    token: test-dummy-token
+
+# ============================================================
+# Target Repository (test overrides)
+# Points at a fictional repo so no real network calls are made.
+# ============================================================
+target-repository:
+  owner: test-owner
+  repo: test-repo
+  ref: main
+
+# ============================================================
+# Spring AI / Ollama (test overrides)
+# Tests mock the AI gateway, so the base-url is a placeholder
+# that should never be contacted during a test run.
+# ============================================================
+spring:
+  ai:
+    ollama:
+      base-url: http://localhost:0   # placeholder – AI gateway is mocked in tests
+
+# ============================================================
+# Temporal Workflow (test overrides)
+# Short signal timeout keeps tests from hanging.
+# ============================================================
+temporal:
+  pr-review-workflow:
+    signal-timeout-seconds: 5   # fast timeout for tests
+
+# ============================================================
+# Polling (test overrides)
+# Short interval so polling-related tests complete quickly.
+# ============================================================
+polling:
+  interval-seconds: 1
