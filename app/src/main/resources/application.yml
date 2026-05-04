@@ -1,0 +1,78 @@
+# ============================================================
+# VCS (Version Control System) Provider Configuration
+# Selects which VCS provider to use and supplies credentials.
+# Supported providers: github | gitlab | bitbucket
+# ============================================================
+vcs:
+  provider: github          # github | gitlab | bitbucket
+  # bot-username: my-bot-account
+  # github:
+  #   token: ${VCS_GITHUB_TOKEN}
+  #   api-base-url: https://api.github.com
+  # gitlab:
+  #   token: ${VCS_GITLAB_TOKEN}
+  #   api-base-url: https://gitlab.com/api/v4
+  # bitbucket:
+  #   token: ${VCS_BITBUCKET_TOKEN}
+  #   api-base-url: https://api.bitbucket.org/2.0
+  vcs:
+  provider: github
+  bot-username: antdoc2000
+
+
+
+# ============================================================
+# Target Repository Configuration
+# Identifies the repository to crawl and document.
+# ============================================================
+target-repository:
+  owner: antonmaeso
+  repo: https://github.com/antonmaeso/antdocs
+  ref: main
+
+# ============================================================
+# Crawler Configuration
+# Controls which file types are included or excluded when
+# crawling the target repository's file tree.
+# ============================================================
+crawler:
+  include-extensions: [.java, .kt, .py, .ts, .js, .go]
+  exclude-extensions: [.md, .txt]
+
+# ============================================================
+# Server Configuration
+# ============================================================
+server:
+  port: 8081   # Temporal UI uses 8080
+
+# ============================================================
+# Spring AI / Ollama Configuration
+# Configures the AI backend used for documentation generation
+# and PR review analysis. Defaults to a local Ollama instance.
+# ============================================================
+spring:
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: llama3
+
+# ============================================================
+# Temporal Workflow Configuration
+# Connection settings for the Temporal server and workflow
+# behaviour, including the developer-reply signal timeout.
+# ============================================================
+temporal:
+  host: localhost
+  port: 7233
+  namespace: default
+  pr-review-workflow:
+    signal-timeout-seconds: 86400   # 24 hours default
+
+# ============================================================
+# Polling Configuration
+# Controls how frequently the PR poller checks for new pull
+# requests and developer replies on open PRs.
+# ============================================================
+polling:
+  interval-seconds: 60

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.documenter</groupId>
+        <artifactId>github-repo-documenter</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>app</artifactId>
+    <name>app</name>
+    <description>Application entry point — wires all modules together</description>
+
+    <dependencies>
+        <!-- Internal modules -->
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>crawler</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>documentation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>pr-reviewer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>ai-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>vcs-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example.documenter</groupId>
+            <artifactId>temporal-workflows</artifactId>
+        </dependency>
+
+        <!-- Temporal Java SDK — needed for WorkflowClient, WorkerFactory, Worker -->
+        <dependency>
+            <groupId>io.temporal</groupId>
+            <artifactId>temporal-sdk</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Configuration processor — generates IDE auto-completion metadata -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Validation — required for @Validated on PollingProperties and TargetRepositoryProperties -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
