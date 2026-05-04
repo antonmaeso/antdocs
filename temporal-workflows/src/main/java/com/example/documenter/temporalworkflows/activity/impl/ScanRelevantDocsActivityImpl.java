@@ -1,14 +1,15 @@
 package com.example.documenter.temporalworkflows.activity.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.documenter.aigateway.AIGateway;
 import com.example.documenter.aigateway.domain.DocFileSummary;
 import com.example.documenter.aigateway.domain.RelevanceScanResult;
 import com.example.documenter.temporalworkflows.activity.ScanRelevantDocsActivity;
 import com.example.documenter.vcsgateway.VCSProvider;
+import com.example.documenter.vcsgateway.VcsApiException;
 import com.example.documenter.vcsgateway.domain.TreeEntry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Implementation of {@link ScanRelevantDocsActivity}.
@@ -31,7 +32,17 @@ public class ScanRelevantDocsActivityImpl implements ScanRelevantDocsActivity {
     @Override
     public RelevanceScanResult scan(String diffPatch, String owner, String repo) {
         String companionRepo = repo + "_ai_documentation";
-        List<TreeEntry> tree = vcsProvider.fetchFileTree(owner, companionRepo, "main");
+        
+        List<TreeEntry> tree;
+        try {
+            tree = vcsProvider.fetchFileTree(owner, companionRepo, "main");
+        } catch (VcsApiException e) {
+            // Companion repo doesn't exist (404) or is empty (409) — return empty scan result
+            if (e.getHttpStatus() == 404 || e.getHttpStatus() == 409) {
+                return aiGateway.scanRelevantDocs(diffPatch, List.of());
+            }
+            throw e;
+        }
 
         List<DocFileSummary> summaries = new ArrayList<>();
         for (TreeEntry entry : tree) {

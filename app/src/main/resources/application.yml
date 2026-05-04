@@ -15,11 +15,7 @@ vcs:
   # bitbucket:
   #   token: ${VCS_BITBUCKET_TOKEN}
   #   api-base-url: https://api.bitbucket.org/2.0
-  vcs:
-  provider: github
   bot-username: antdoc2000
-
-
 
 # ============================================================
 # Target Repository Configuration
@@ -27,7 +23,7 @@ vcs:
 # ============================================================
 target-repository:
   owner: antonmaeso
-  repo: https://github.com/antonmaeso/antdocs
+  repo: antdocs
   ref: main
 
 # ============================================================

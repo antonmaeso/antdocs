@@ -60,6 +60,9 @@ public class DocumentationStorage {
             if (e.getHttpStatus() == 404) {
                 log.info("Companion repo {}/{} not found, creating it", owner, companionRepo);
                 vcsProvider.createRepository(owner, companionRepo, false);
+            } else if (e.getHttpStatus() == 409) {
+                // Repository exists but is empty (no commits/branches yet)
+                log.info("Companion repo {}/{} exists but is empty, will initialize on first push", owner, companionRepo);
             } else {
                 throw e;
             }
